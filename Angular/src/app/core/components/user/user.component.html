@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-tab-group>
+    <mat-tab label="Register">
+      <form (ngSubmit)="registerUser(); registrationForm.reset()" class="example-container" #registrationForm="ngForm">
+      <div class="name">
+        <mat-form-field class="firstName">
+          <input matInput type="text" placeholder="First Name" name="firstName" required>
+        </mat-form-field>
+        <mat-form-field class="lastName">
+          <input matInput type="text" placeholder="Last Name" name="lastName" required>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="User Name" name="userName" required>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput type="email" placeholder="Email" name="email" required>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" placeholder="Password" name="password" required>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="registrationForm.form.invalid">Register</button>
+    </form>
+    </mat-tab>
+    <mat-tab label="Login"> Content 2 </mat-tab>
+  </mat-tab-group>
+</mat-card>

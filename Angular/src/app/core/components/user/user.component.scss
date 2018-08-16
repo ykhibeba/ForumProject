@@ -1,0 +1,35 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card {
+  margin: 10px;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.name {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.name > * {
+  flex-grow: 1;
+}
+
+.firstName {
+  margin-right: 10px;
+}
+
+.lastName {
+  margin-left: 10px;
+}

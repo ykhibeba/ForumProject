@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-title>{{post.title}}</mat-card-title>
+  <mat-card-content>{{post.body}}</mat-card-content>
+  <mat-card-footer>
+    {{post.name}}: {{post.datetime}}
+  </mat-card-footer>
+</mat-card>
+<mat-card>
+  <mat-card-title>Comments</mat-card-title>
+</mat-card>
+<mat-card class="example-container">
+  <form (ngSubmit)="addComment(); commentForm.reset()" #commentForm="ngForm">
+    <mat-form-field>
+      <textarea matInput type="text" name="comment" [(ngModel)]="comment" placeholder="Comment" required></textarea>
+    </mat-form-field>
+    <button mat-button type="submit" [disabled]="commentForm.form.invalid">Add comment</button>
+  </form>
+</mat-card>
+<app-comment [comments]="post?.comments" (save)="saveComment($event)" (delete)="deleteComment($event)"></app-comment>
+

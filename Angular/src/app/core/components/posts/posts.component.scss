@@ -1,0 +1,27 @@
+mat-card {
+  margin: 10px;
+}
+
+mat-card-footer {
+  display: flex;
+  flex-direction: row;
+}
+
+.control {
+  position: relative;
+}
+
+.control button {
+  position: absolute;
+  top: -20px;
+  right: 0;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * > * {
+  width: 100%;
+}

@@ -1,0 +1,72 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "title": "C#",
+      "description": "Basics, syntactic constructs, classes, LINQ, TPL"
+    },
+    {
+      "id": 2,
+      "title": "ASP.NET",
+      "description": "Website Development, ASP.NET MVC, Dynamic Data"
+    },
+    {
+      "id": 3,
+      "title": "ADO.NET",
+      "description": "Working with Databases, DataSet Objects"
+    },
+    {
+      "id": 4,
+      "title": "EntityFramework",
+      "description": "Entity Framework technology"
+    },
+    {
+      "id": 5,
+      "title": "Silverlight",
+      "description": "Develop Silverlight Web Applets"
+    }
+  ],
+  "postsByCategoryId1": [
+    {
+      "id": 1,
+      "title": "About object",
+      "name": "Admin",
+      "datetime": "2018-07-18T12:15:00"
+    }
+  ],
+  "postByCategoryId1": [
+    {
+      "id": 1,
+      "datetime": "2018-07-18T12:15:00",
+      "name": "Admin",
+      "title": "About object",
+      "body": "Good afternoon! Passed an elementary test on C #. I do not understand why the expression (object) 1 == (object) 1 gives false? Can you explain, please?",
+      "comments": [
+        {
+          "id": 1,
+          "datetime": "2018-07-18T12:35:00",
+          "name": "Alexandr_Erohin",
+          "body": "And how interesting are you to compare two objects using the \"==\" operator? To compare objects of course, you can overload this comparison operator (described here), but it's easier to use the built-in Object.Equals method.\r\n\r\nThose. the following code will give false, because the two objects do not know anything about each other:"
+        },
+        {
+          "id": 2,
+          "datetime": "2018-07-18T12:35:00",
+          "name": "Roman",
+          "body": "Test1"
+        },
+        {
+          "id": 3,
+          "datetime": "2018-07-18T12:35:00",
+          "name": "Yura",
+          "body": "Test2"
+        },
+        {
+          "id": 4,
+          "datetime": "2018-07-18T12:35:00",
+          "name": "Kolya",
+          "body": "Test3"
+        }
+      ]
+    }
+  ]
+}

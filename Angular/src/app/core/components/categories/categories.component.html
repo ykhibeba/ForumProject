@@ -1,0 +1,5 @@
+<mat-card *ngFor="let item of categories" (click)="loadPosts(item)">
+  <mat-card-title>{{item.title}}</mat-card-title>
+  <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+</mat-card>
+

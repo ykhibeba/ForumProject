@@ -1,0 +1,36 @@
+mat-card {
+  margin: 10px;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * > * {
+  width: 100%;
+}
+
+mat-card-footer {
+  display: flex;
+  flex-direction: row;
+}
+
+.control {
+  position: relative;
+}
+
+.controlButtons {
+  position: absolute;
+  top: -20px;
+  right: 0;
+}
+
+.editControlButtons {
+  display: flex;
+  flex-direction: row;
+}
+
+.editControlButtons > * {
+  flex-grow: 1;
+}

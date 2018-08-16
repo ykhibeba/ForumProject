@@ -1,0 +1,20 @@
+<mat-card class="example-container">
+  <form (ngSubmit)="addPost(postTitle.value, postBody.value); postForm.reset()" #postForm="ngForm">
+    <mat-form-field class="postTitle">
+      <input matInput type="text" placeholder="Post Title" name="postTitle" #postTitle required>
+    </mat-form-field>
+    <mat-form-field class="postBody">
+      <textarea matInput type="text" placeholder="Post Body" name="postBody" #postBody required></textarea>
+    </mat-form-field>
+    <button mat-button type="submit" [disabled]="postForm.form.invalid">Add post</button>
+  </form>
+</mat-card>
+<mat-card *ngFor="let item of posts" (click)="loadPost(item)">
+  <mat-card-title>{{item.title}}</mat-card-title>
+  <mat-card-footer class="control">
+    {{item.name}}: {{item.datetime}}
+    <button mat-icon-button (click)="deletePost(item)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-footer>
+</mat-card>
