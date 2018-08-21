@@ -49,16 +49,16 @@ namespace Forum.WEB.Controllers
                     {
                         postTitle.Add(new PostTitles
                         {
-                            postid = post.ID,
-                            posttitle = post.Title
+                            id = post.ID,
+                            title = post.Title
                         });
                     }
 
                     titles.Add(new Title
                     {
-                        categoryid = category.ID,
-                        categorytitle = category.Title,
-                        postTitles = postTitle
+                        id = category.ID,
+                        title = category.Title,
+                        posts = postTitle
                     });
                 }
                 return Ok(titles);

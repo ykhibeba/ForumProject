@@ -42,16 +42,24 @@ namespace Forum.WEB.Models
         public string LastName { get; set; }
     }
 
+    /// <summary>
+    /// Information about user.
+    /// </summary>
     public class UserInfo
     {
         /// <summary>
         /// User name
         /// </summary>
-        public string UserName { get; set; }
+        public string username { get; set; }
 
         /// <summary>
-        /// Full name.
+        /// First name.
         /// </summary>
-        public string FullName { get; set; }
+        public string firstname { get; set; }
+
+        /// <summary>
+        /// Last name.
+        /// </summary>
+        public string lastname { get; set; }
     }
 }

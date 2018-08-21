@@ -94,24 +94,4 @@ namespace Forum.WEB.Models
         /// </summary>
         public IEnumerable<Comment> comments { get; set; }
     }
-
-    /// <summary>
-    /// Model for Update Post PUT StatusCode
-    /// </summary>
-    public class PutPost
-    {
-        /// <summary>
-        /// Title of post
-        /// </summary>
-        [Column(TypeName = "nvarchar")]
-        [StringLength(256)]
-        public string title { get; set; }
-
-        /// <summary>
-        /// Message body post
-        /// </summary>
-        [Required]
-        [Column(TypeName = "nvarchar(max)")]
-        public string body { get; set; }
-    }
 }

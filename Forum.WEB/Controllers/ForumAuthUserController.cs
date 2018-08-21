@@ -32,6 +32,15 @@ namespace Forum.WEB.Controllers
             forumService = service;
         }
 
+        //Take user claims
+        private void TakeClaims(IIdentity identity, out string firstNameClaims, out string lastNameClaims, out string userName)
+        {
+            ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
+            firstNameClaims = claimsIdentity.FindFirst("FirstName").Value;
+            lastNameClaims = claimsIdentity.FindFirst("LastName").Value;
+            userName = claimsIdentity.FindFirst("Username").Value;
+        }
+
         /// <summary>
         /// Create post.
         /// </summary>
@@ -66,13 +75,65 @@ namespace Forum.WEB.Controllers
             return Content(HttpStatusCode.Created, post);
         }
 
-        //Take user claims
-        private void TakeClaims(IIdentity identity, out string firstNameClaims, out string lastNameClaims, out string userName)
+        /// <summary>
+        /// Update post.
+        /// </summary>
+        /// <param name="categoryid">Id of category.</param>
+        /// <param name="postid">Id of post.</param>
+        /// <param name="post">Post model.</param>
+        /// <returns></returns>
+        [HttpPut]
+        [ResponseType(typeof(Post))]
+        [Route("api/forum/{categoryid}/{postid}/update")]
+        public IHttpActionResult UpdatePost(int categoryid, int postid, [FromBody]Post post)
         {
-            ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
-            firstNameClaims = claimsIdentity.FindFirst("FirstName").Value;
-            lastNameClaims = claimsIdentity.FindFirst("LastName").Value;
-            userName = claimsIdentity.FindFirst("Username").Value;
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var find = forumService.GetPostById(postid);
+
+            TakeClaims(User.Identity, out string firstNameClaims, out string lastNameClaims, out string userName);
+
+            var postDto = new PostDTO
+            {
+                ID = postid,
+                CategoryID = categoryid,
+                CreatorName = String.Format($"{firstNameClaims} {lastNameClaims}"),
+                UserName = userName,
+                Body = post.body ?? find.Body,
+                Title = post.title ?? find.Title,
+                DateTime = DateTime.Now
+            };
+
+            forumService.UpdatePost(postDto);
+
+            post.id = forumService.AddPost(postDto);
+            post.datetime = postDto.DateTime;
+            post.name = String.Format($"{firstNameClaims} {lastNameClaims}");
+            post.username = userName;
+
+            return Content(HttpStatusCode.OK, post);
+        }
+
+        /// <summary>
+        /// Delete post.
+        /// </summary>
+        /// <param name="postid">Id of post.</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("api/forum/{categoryid}/{postid}/delete")]
+        public IHttpActionResult DeletePost(int postid)
+        {
+            try
+            {
+                PostDTO postDTO = forumService.GetPostById(postid);
+                forumService.DeletePost(postid);
+                return Ok();
+            }
+            catch(ValidationException ex)
+            {
+                return NotFound();
+            }
         }
 
         /// <summary>
@@ -103,60 +164,8 @@ namespace Forum.WEB.Controllers
             comment.id = forumService.AddComment(comentDto);
             comment.datetime = comentDto.DateTime;
             comment.name = comentDto.Name;
+            comment.username = comentDto.UserName;
             return Content(HttpStatusCode.Created, comment);
-        }
-
-        /// <summary>
-        /// Update post.
-        /// </summary>
-        /// <param name="categoryid">Id of category.</param>
-        /// <param name="postid">Id of post.</param>
-        /// <param name="post">Post model.</param>
-        /// <returns></returns>
-        [HttpPut]
-        [ResponseType(typeof(PutPost))]
-        [Route("api/forum/{categoryid}/{postid}/update")]
-        public IHttpActionResult UpdatePost(int categoryid, int postid, [FromBody]PutPost post)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var find = forumService.GetPostById(postid);
-
-            TakeClaims(User.Identity, out string firstNameClaims, out string lastNameClaims, out string userName);
-
-            var postDto = new PostDTO
-            {
-                ID = postid,
-                CategoryID = categoryid,
-                CreatorName = String.Format($"{firstNameClaims} {lastNameClaims}"),
-                UserName = userName,
-                Body = post.body ?? find.Body,
-                Title = post.title ?? find.Title,
-                DateTime = DateTime.Now
-            };
-
-            forumService.UpdatePost(postDto);
-
-            return Content(HttpStatusCode.OK, post);
-        }
-
-        /// <summary>
-        /// Delete post.
-        /// </summary>
-        /// <param name="postid">Id of post.</param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("api/forum/{categoryid}/{postid}/delete")]
-        public IHttpActionResult DeletePost(int postid)
-        {
-            PostDTO postDTO = forumService.GetPostById(postid);
-
-            if (postDTO == null)
-                return NotFound();
-
-            forumService.DeletePost(postid);
-            return Ok();
         }
 
         /// <summary>
@@ -189,6 +198,9 @@ namespace Forum.WEB.Controllers
             };
 
             forumService.UpdateComment(comentDto);
+            comment.datetime = comentDto.DateTime;
+            comment.name = comentDto.Name;
+            comment.username = comentDto.UserName;
 
             return Content(HttpStatusCode.OK, comment);
 
@@ -203,13 +215,16 @@ namespace Forum.WEB.Controllers
         [Route("api/forum/{categoryid}/{postid}/{commentid}/delete")]
         public IHttpActionResult DeleteComment(int commentid)
         {
-            CommentDTO commentDTO = forumService.GetCommentById(commentid);
-
-            if (commentDTO == null)
+            try
+            {
+                CommentDTO commentDTO = forumService.GetCommentById(commentid);
+                forumService.DeleteComment(commentid);
+                return Ok();
+            }
+            catch(ValidationException ex)
+            {
                 return NotFound();
-
-            forumService.DeleteComment(commentid);
-            return Ok();
+            }
         }
     }
 }

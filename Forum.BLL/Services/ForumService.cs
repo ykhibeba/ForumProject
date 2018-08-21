@@ -99,7 +99,7 @@ namespace Forum.BLL.Services
                     comments = null;
                 return comments;
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 throw new ValidationException($"Havnt comment for postid = {postid}.", "postid");
             }
@@ -117,13 +117,14 @@ namespace Forum.BLL.Services
             if (post == null)
                 throw new ValidationException("Post not found", "");
 
-            return new PostDTO {
+            return new PostDTO
+            {
                 Title = post.Title,
                 Body = post.Body,
                 CreatorName = post.CreatorName,
                 DateTime = post.DateTime,
                 UserName = post.UserName
-                };
+            };
         }
 
         /// <summary>
@@ -138,11 +139,11 @@ namespace Forum.BLL.Services
             try
             {
                 var posts = mapper.Map<IEnumerable<Post>, List<PostDTO>>(Database.Posts.GetAll().Where(c => c.CategoryID == categoryid));
-                if(posts.Count == 0)
+                if (posts.Count == 0)
                     throw new ValidationException($"Havnt any posts by categoryid = {categoryid}", "categoryid");
                 return posts;
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 throw new ValidationException($"Havnt any posts by categoryid = {categoryid}", "categoryid");
             }
@@ -213,6 +214,7 @@ namespace Forum.BLL.Services
                 foreach (var comment in comments)
                     DeleteComment(comment.ID);
             }
+
             Database.Posts.Delete(postid);
             SaveChanges();
         }
@@ -229,7 +231,8 @@ namespace Forum.BLL.Services
             if (comment == null)
                 throw new ValidationException("Comment not found", "");
 
-            return new CommentDTO {
+            return new CommentDTO
+            {
                 Body = comment.Body,
                 Name = comment.Name,
                 UserName = comment.UserName,
@@ -247,7 +250,7 @@ namespace Forum.BLL.Services
         {
             return Database.Comments.GetAll().Last(x => x.Name == name).ID;
         }
-        
+
         /// <summary>
         /// Get last added post id by username.
         /// </summary>

@@ -62,8 +62,9 @@ namespace Forum.WEB.Controllers
 
             UserInfo model = new UserInfo()
             {
-                UserName = identityClaims.FindFirst("Username").Value,
-                FullName = String.Format($"{identityClaims.FindFirst("FirstName").Value} {identityClaims.FindFirst("LastName").Value} ")
+                username = identityClaims.FindFirst("Username").Value,
+                firstname = identityClaims.FindFirst("FirstName").Value,
+                lastname = identityClaims.FindFirst("LastName").Value
             };
 
             return model;

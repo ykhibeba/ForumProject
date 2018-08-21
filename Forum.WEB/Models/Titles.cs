@@ -13,17 +13,17 @@ namespace Forum.WEB.Models
         /// <summary>
         /// Category id.
         /// </summary>
-        public int categoryid { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Category title.
         /// </summary>
-        public string categorytitle { get; set; }
+        public string title { get; set; }
 
         /// <summary>
         /// Post titles.
         /// </summary>
-        public IEnumerable<PostTitles> postTitles { get; set; }
+        public IEnumerable<PostTitles> posts { get; set; }
     }
 
     /// <summary>
@@ -34,11 +34,11 @@ namespace Forum.WEB.Models
         /// <summary>
         /// Post id.
         /// </summary>
-        public int postid { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Post titles.
         /// </summary>
-        public string posttitle { get; set; }
+        public string title { get; set; }
     }
 }

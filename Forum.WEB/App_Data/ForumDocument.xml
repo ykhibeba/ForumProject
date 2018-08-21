@@ -866,17 +866,17 @@
             Titles of category and it posts
             </summary>
         </member>
-        <member name="P:Forum.WEB.Models.Title.categoryid">
+        <member name="P:Forum.WEB.Models.Title.id">
             <summary>
             Category id.
             </summary>
         </member>
-        <member name="P:Forum.WEB.Models.Title.categorytitle">
+        <member name="P:Forum.WEB.Models.Title.title">
             <summary>
             Category title.
             </summary>
         </member>
-        <member name="P:Forum.WEB.Models.Title.postTitles">
+        <member name="P:Forum.WEB.Models.Title.posts">
             <summary>
             Post titles.
             </summary>
@@ -886,12 +886,12 @@
             Post titles.
             </summary>
         </member>
-        <member name="P:Forum.WEB.Models.PostTitles.postid">
+        <member name="P:Forum.WEB.Models.PostTitles.id">
             <summary>
             Post id.
             </summary>
         </member>
-        <member name="P:Forum.WEB.Models.PostTitles.posttitle">
+        <member name="P:Forum.WEB.Models.PostTitles.title">
             <summary>
             Post titles.
             </summary>
